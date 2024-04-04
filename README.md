@@ -31,5 +31,5 @@
 ​
 ## 使用素材
 - 検討中
-実装機能リスト
+## 実装機能リスト
 https://docs.google.com/spreadsheets/d/1XNNN3oLxxxoN2TZtOfoyaK5a9dcnwVvtiGSiPa9yxZs/edit?usp=sharing
