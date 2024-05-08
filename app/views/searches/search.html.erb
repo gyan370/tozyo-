@@ -1,0 +1,31 @@
+<h2>検索結果一覧</h2>
+
+<table class="table table-hover table-inverse">
+  <% if @range == "User" %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <tbody>
+      <tr>
+          <td>城名</td>
+          <td>店名</td>
+          <td>タイトル</td>
+      </tr>
+       
+      <% @reviws.each do |reviw| %>
+        <tr>
+          <td><%= reviw.castle %></td>
+          <td><%= reviw.store %></td>
+          <td><%= reviw.title %></td>
+          <td><%= link_to "詳細", reviw_path(reviw.id) %></td>
+        </tr>
+       
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

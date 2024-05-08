@@ -1,0 +1,59 @@
+ <div class="container">  
+  <div class="row">
+  <div class="<col-md-12
+>">
+    <h1>投稿詳細</h1>
+     
+     <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">城名</th>
+          <th scope="col">店名</th>
+          <th scope="col">タイトル</th>
+          <th scope="col">本文</th>
+        </tr>
+      <tbody>
+        
+      <th scope="row"><%= @reviw.castle %></th>
+      <th scope="row"><%= @reviw.store %></th>
+      <th scope="row"><%= @reviw.title %></th>
+      <th scope="row"><%= @reviw.introduction %></th>
+      <th scope="row"><%= link_to "編集", edit_reviw_path(@reviw.id) %></th>
+      <th scope="row"><%= link_to "削除", reviw_path(@reviw), method: :delete %></th>
+      
+     </tbody>
+    </table>
+      <div id="star_<%= @reviw.id %>"></div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+      let elem = document.querySelector('#star_<%= @reviw.id %>');
+      
+      elem.innerHTML = "";
+      let opt = {  
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        score: "<%= @reviw.star %>",
+        readOnly: true,
+      };
+      raty(elem, opt);
+      });
+    </script>
+       
+    <div>
+      <p>コメント件数：<%= @reviw.reviw_comments.count %></p>
+      <% @reviw.reviw_comments.each do |reviw_comment| %>
+        <%= reviw_comment.user.name %>
+        <%= reviw_comment.created_at.strftime('%Y/%m/%d') %><%= reviw_comment.comment %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form_with model: [@reviw, @reviw_comment] do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
+    </div>
+  </div>
+  </div>
+</div>      
