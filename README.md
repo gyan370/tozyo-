@@ -30,6 +30,7 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-- 検討中
+- フリー素材として以下を使用
+- photo-ac.(https://www.photo-ac.com/)
 ## 実装機能リスト
 https://docs.google.com/spreadsheets/d/1XNNN3oLxxxoN2TZtOfoyaK5a9dcnwVvtiGSiPa9yxZs/edit?usp=sharing
