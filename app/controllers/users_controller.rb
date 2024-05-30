@@ -8,7 +8,7 @@ class UsersController < ApplicationController
    
   def show
    @user = User.find(params[:id])
-   @reviws = @user.reviws
+   @reviws = @user.reviws.page(params[:page])
    @today_reviw =  @reviws.created_today
    @yesterday_reviw = @reviws.created_yesterday
    @this_week_reviw = @reviws.created_this_week

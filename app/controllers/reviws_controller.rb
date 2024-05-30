@@ -14,7 +14,14 @@ class ReviwsController < ApplicationController
   end
 
   def index
-    @reviws = Reviw.all
+    respond_to do |format|
+      format.html do
+        @reviws = Reviw.page(params[:page])
+      end
+      format.json do
+        @reviws = Reviw.all
+      end
+    end
   end
   
   def create
@@ -54,6 +61,6 @@ class ReviwsController < ApplicationController
   end
   
  def reviw_params
-    params.require(:reviw).permit(:title, :introduction, :castle, :store, :image, :star)
+    params.require(:reviw).permit(:title, :introduction, :castle, :store, :image, :star, :address)
  end
 end

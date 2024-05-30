@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+   
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
@@ -28,6 +29,6 @@ Rails.application.routes.draw do
   resources :reviws, only: [:new, :index, :show, :edit, :update, :create, :destroy]
   get '/reviws', to: 'reviws#index'
   get "search" => "searches#search"
-
+  resource :map, only: [:show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

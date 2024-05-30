@@ -1,0 +1,26 @@
+<%= render "layouts/error_messages", model: f.object %>
+
+<div class="mb-2">
+  <%= f.label :castle, "城名" %>
+  <%= f.text_field :castle, class: "form-control" %>
+</div>
+
+<div class="mb-2">
+  <%= f.label :store, "店名" %>
+  <%= f.text_field :store, class: "form-control" %>
+</div>
+
+<div class="mb-2">
+  <%= f.label :title, "タイトル" %>
+  <%= f.text_field :title, class: "form-control" %>
+</div>
+
+<div class="mb-2">
+  <%= f.label :introduction, "本文" %>
+  <%= f.text_area :introduction, rows: 7, class: "form-control" %>
+</div>
+
+<div class="mb-2">
+  <%= f.label :image, "画像" %>
+  <%= f.file_field :image, accept: "image/*", class: "form-control" %>
+</div>

@@ -1,42 +1,47 @@
-<div class="title">新規投稿</di>
-<% if @reviw.errors.any? %>
-  <%= @reviw.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @reviw.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h1 class="mt-4">新規投稿</h1>
+    <%= form_with model: @reviw do |f| %>
+      <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-tenge-sign"></i></span>
+          </div>
+          <%= text_field_tag :zipcode, nil, class: "form-control", placeholder: "郵便番号", id: "zipcode" %>
+        </div>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span>
+          </div>
+          <%= f.text_field :address, class: "form-control", placeholder: "住所", id: "post_image_address" %>
+      </div>
+      
+      <%= render 'reviws/form', f: f %>
+      <div class="mb-2">
+        <label>レビュー</label>
+        <div id="star">
+      </div>
+      
+      <script>
+       $(document).on('turbolinks:load', function() {
+          const elem = document.querySelector('#star');
+          elem.innerHTML = "";
+          const opt = {  
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            scoreName: "reviw[star]",
+          };
+          raty(elem, opt);
+       });
+      </script>
+    </div>
+    <div class="mb-2">
+      <%= f.submit '投稿', class: "btn btn-primary" %>
     <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @reviw do |f| %>
-
-  <h4>城名</h4>
-  <%= f.text_field :castle %>
-  
-  <h4>店名</h4>
-  <%= f.text_field :store %>
-
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
-	
-  <h4>本文</h4>
-  <%= f.text_area :introduction%>
-
-<div id="star"></div>
-
+    </div>
+  </div>
+</div>
 <script>
- $(document).on('turbolinks:load', function() {
-    const elem = document.querySelector('#star');
-    elem.innerHTML = "";
-    const opt = {  
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      scoreName: "reviw[star]",
-    };
-    raty(elem, opt);
- });
+  
 </script>
-	
-	  <%= f.submit '投稿' %>
-<% end %>
+<%#= javascript_pack_tag "jpostal",  'data-turbolinks-track': 'reload' %>

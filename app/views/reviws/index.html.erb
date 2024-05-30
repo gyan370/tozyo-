@@ -1,50 +1,48 @@
 <h1>投稿一覧</h1>
 
-
- <div class="search_form">
+<div class="search_form">
   <%= form_with url: search_path, local: true, method: :get do |f| %>
     <%= f.text_field :word %>
     <%= f.select :range, options_for_select([['User'],['Reviw']]) %>
     <%= f.select :search, options_for_select([["完全一致","perfect_match"],["前方一致","forward_match"],["後方一致","backward_match"],["部分一致","partial_match"]]) %>
     <%= f.submit "検索",class: "btn btn-primay" %>
   <% end %>
- </div>
+</div>
 
 
-<% @reviws.each do |reviw| %>
- 
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">城名</th>
-          <th scope="col">店名</th>
-          <th scope="col">タイトル</th>
-          <th scope="col">投稿者</th>
-        </tr>
-      <tbody>
-         <th scope="row"><%= reviw.castle %></th>
-         <th scope="row"><%= reviw.store %></th>
-         <th scope="row"><%= reviw.title %></th>
-         <th scope="row"><%= reviw.user.name %></th>
-       </tbody>
-    </table>
-
-    <div id="star_<%= reviw.id %>"></div>
-    <script>
-       $(document).on('turbolinks:load', function() {
-       let elem = document.querySelector('#star_<%= reviw.id %>'); 
-       
-       elem.innerHTML = "";
-       let opt = {  
-         starOn: "<%= asset_path('star-on.png') %>",
-         starOff: "<%= asset_path('star-off.png') %>",
-         starHalf: "<%= asset_path('star-half.png') %>",
-         score: "<%= reviw.star %>",
-         readOnly: true,
-       };
-       raty(elem, opt);
-       });
-    </script>
-
-  <%= link_to "詳細", reviw_path(reviw.id) %>
-<% end %>
+<div class="row">
+  <% @reviws.each do |reviw| %>
+    <div class="col-md-4 col-sm-6">   
+      <div class="card mb-4">
+        <div class="card-body">
+          <% if reviw.image.attached? %>
+            <%= image_tag(reviw.image, class: "card-img-top") %>
+          <% else %>
+            <%= image_tag('no_image', class: "card-img-top") %>
+          <% end %>
+          <h5 class="card-title"><%= reviw.title %></h5>
+          <p class="card-text"><%= reviw.castle %></p>
+          <p class="card-text"><%= reviw.store %></p>
+          <p class="card-text"><%= reviw.user.name %></p>
+          <div id="star_<%= reviw.id %>"></div>
+          <script>
+             $(document).on('turbolinks:load', function() {
+             let elem = document.querySelector('#star_<%= reviw.id %>'); 
+             
+             elem.innerHTML = "";
+             let opt = {  
+               starOn: "<%= asset_path('star-on.png') %>",
+               starOff: "<%= asset_path('star-off.png') %>",
+               starHalf: "<%= asset_path('star-half.png') %>",
+               score: "<%= reviw.star %>",
+               readOnly: true,
+             };
+             raty(elem, opt);
+             });
+          </script>
+          <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

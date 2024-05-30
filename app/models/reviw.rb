@@ -6,6 +6,10 @@ class Reviw < ApplicationRecord
   validates :castle, presence: true
   validates :store, presence: true
   validates :introduction, presence: true, length: { maximum: 140 }
+  validates :address, presence: true
+
+  geocoded_by :address
+  after_validation :geocode
   
   scope :created_today, -> { where(created_at: Time.zone.now.all_day) } 
   scope :created_yesterday, -> { where(created_at: 1.day.ago.all_day) } 

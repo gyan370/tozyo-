@@ -1,16 +1,18 @@
-<div class="background">
-  <h1  class="title">登城！</h1>
-  <h3 class="text"><span>ゲストでログインしてレビューをみてみよう！</span></h3>
-  
-  <div class="btn-wrapper col-2 mx-auto">
-          <div class="row">
-            <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-          </div>
-          <div class="row">
-            <%= link_to "Log in",new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
-          </div>
-          <div class="row">
-            <%= link_to "Sign Up",new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
-          </div>
+<%= content_for(:bg_area) do %>
+  <div class="background">
+    <h1  class="title mt-5"><span>  登城！</span></h1>
+    <h3 class="text mt-5 mb-5"><span>ゲストでログインしてレビューをみてみよう！</span></h3>
+    
+    <div class="btn-wrapper col-2 mx-auto">
+      <div class="row">
+        <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+      </div>
+      <div class="row">
+        <%= link_to "Log in",new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+      </div>
+      <div class="row">
+        <%= link_to "Sign Up",new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
