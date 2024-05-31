@@ -1,31 +1,43 @@
 <h2>検索結果一覧</h2>
-
-<table class="table table-hover table-inverse">
+<div class="row">
   <% if @range == "User" %>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-        </tr>
+    <% @users.each do |user| %>
+     <% user.reviws.each do |reviw| %>  
+        <div class="col-md-4 col-sm-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <% if reviw.image.attached? %>
+                <%= image_tag(reviw.image, class: "card-img-top") %>
+              <% else %>
+                <%= image_tag('no_image', class: "card-img-top") %>
+              <% end %>
+              <h5 class="card-title"><%= reviw.title %></h5>
+              <p class="card-text"><%= reviw.castle %></p>
+              <p class="card-text"><%= reviw.store %></p>
+              <p class="card-text"><%= reviw.user.name %></p>
+              <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
+              </div>
+          </div>
+        </div>
       <% end %>
-    </tbody>
+    <% end %>
   <% else %>
-    <tbody>
-      <tr>
-          <td>城名</td>
-          <td>店名</td>
-          <td>タイトル</td>
-      </tr>
-       
-      <% @reviws.each do |reviw| %>
-        <tr>
-          <td><%= reviw.castle %></td>
-          <td><%= reviw.store %></td>
-          <td><%= reviw.title %></td>
-          <td><%= link_to "詳細", reviw_path(reviw.id) %></td>
-        </tr>
-       
-      <% end %>
-    </tbody>
+     <% @reviws.each do |reviw| %>
+      <div class="col-md-4 col-sm-6">   
+        <div class="card mb-4">
+          <div class="card-body">
+            <% if reviw.image.attached? %>
+              <%= image_tag(reviw.image, class: "card-img-top") %>
+            <% else %>
+              <%= image_tag('no_image', class: "card-img-top") %>
+            <% end %>
+            <h5 class="card-title"><%= reviw.title %></h5>
+            <p class="card-text"><%= reviw.castle %></p>
+            <p class="card-text"><%= reviw.store %></p>
+            <p class="card-text"><%= reviw.user.name %></p>
+            <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</table>
