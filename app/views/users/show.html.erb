@@ -1,5 +1,4 @@
-<div class="row">
-  <div class="col-md-4 offset-md-4">
+  <div class="col-md-4 offset-md-4 mb-3">
     <h1>User info</h1>
     <h3>名前</h3>
       <%= @user.name %>
@@ -9,83 +8,88 @@
       <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary" %></p>
     <% end %>
   </div>  
+<div class="row">
   <% @reviws.each do |reviw| %>
     <div class="col-md-4 col-sm-6">   
-        <div class="card mb-4">
-          <div class="card-body">
-            <% if reviw.image.attached? %>
-              <%= image_tag(reviw.image, class: "card-img-top") %>
-            <% else %>
-              <%= image_tag('no_image', class: "card-img-top") %>
-            <% end %>
-            <h5 class="card-title"><%= reviw.title %></h5>
-            <p class="card-text"><%= reviw.castle %></p>
-            <p class="card-text"><%= reviw.store %></p>
-            <p class="card-text"><%= reviw.user.name %></p>
-            <div id="star_<%= reviw.id %>"></div>
-            <script>
-               $(document).on('turbolinks:load', function() {
-               let elem = document.querySelector('#star_<%= reviw.id %>'); 
+      <div class="card mb-4">
+        <div class="card-body">
+          <% if reviw.image.attached? %>
+             <%= image_tag(reviw.image, class: "card-img-top") %>
+           <% else %>
+            <%= image_tag('no_image', class: "card-img-top") %>
+          <% end %>
+          <h5 class="card-title"><%= reviw.title %></h5>
+          <p class="card-text"><%= reviw.castle %></p>
+          <p class="card-text"><%= reviw.store %></p>
+          <p class="card-text"><%= reviw.user.name %></p>
+          <div id="star_<%= reviw.id %>"></div>
+          <script>
+             $(document).on('turbolinks:load', function() {
+             let elem = document.querySelector('#star_<%= reviw.id %>'); 
                
-               elem.innerHTML = "";
-               let opt = {  
-                 starOn: "<%= asset_path('star-on.png') %>",
-                 starOff: "<%= asset_path('star-off.png') %>",
-                 starHalf: "<%= asset_path('star-half.png') %>",
-                 score: "<%= reviw.star %>",
-                 readOnly: true,
-               };
-               raty(elem, opt);
-               });
-            </script>
-            <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
-          </div>
+              elem.innerHTML = "";
+              let opt = {  
+               starOn: "<%= asset_path('star-on.png') %>",
+               starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+               score: "<%= reviw.star %>",
+                readOnly: true,
+              };
+              raty(elem, opt);
+              });
+          </script>
+          <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
         </div>
       </div>
-    <% end %>
-   
-  <h3>投稿数の前日比・前週比</h3>
-    <div class="table_width">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>今日の投稿</th>
-            <th>昨日の投稿</th>
-            <th>前日比</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @today_reviw.count %></td>
-            <td><%= @yesterday_reviw.count %></td>
-                  <% if @yesterday_reviw.count == 0 %>
-            <td>前日の投稿はなし</td>
-                <% else %>
-            <td><% @the_day_before =   @today_reviw.count / @yesterday_reviw.count  %>
-                  <%= (@the_day_before * 100).round %>%</td>
-                <% end %>
-          </tr>
-        </tbody>
-      </table>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>今週の投稿</th>
-            <th>先週の投稿</th>
-            <th>先週比</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @this_week_reviw.count %></td>
-            <td><%= @last_week_reviw.count %></td>
-                <% if @last_week_reviw.count == 0 %>
-            <td>先週の投稿はなし</td>
-              <% else %>
-            <td><% @the_week_before = @this_week_reviw.count / @last_week_reviw.count  %>
-              <%= (@the_week_before * 100).round %>%</td>
-              <% end %>
-          </tr>
-        </tbody>
-      </table>
     </div>
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-md-4 mb-3">
+    <h3>投稿数の前日比・前週比</h3>
+      <div class="table_width">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>今日の投稿</th>
+              <th>昨日の投稿</th>
+              <th>前日比</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @today_reviw.count %></td>
+              <td><%= @yesterday_reviw.count %></td>
+                    <% if @yesterday_reviw.count == 0 %>
+              <td>前日の投稿はなし</td>
+                  <% else %>
+              <td><% @the_day_before =   @today_reviw.count / @yesterday_reviw.count  %>
+                    <%= (@the_day_before * 100).round %>%</td>
+                  <% end %>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>今週の投稿</th>
+              <th>先週の投稿</th>
+              <th>先週比</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @this_week_reviw.count %></td>
+              <td><%= @last_week_reviw.count %></td>
+                  <% if @last_week_reviw.count == 0 %>
+              <td>先週の投稿はなし</td>
+                <% else %>
+              <td><% @the_week_before = @this_week_reviw.count / @last_week_reviw.count  %>
+                <%= (@the_week_before * 100).round %>%</td>
+                <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
