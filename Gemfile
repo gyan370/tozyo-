@@ -66,3 +66,4 @@ gem "net-pop"
 gem "net-imap"
 #gem 'geocoder'
 gem 'kaminari','~> 1.2.1'
+gem 'stimulus-rails'

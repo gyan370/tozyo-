@@ -13,6 +13,7 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 import "packs/jpostal.js";
+import "controllers"
 
 import Raty from "raty.js";
 window.raty = function(elem, opt) {

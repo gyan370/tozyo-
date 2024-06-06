@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-6 offset-md-3">
     <h1 class="mt-4">新規投稿</h1>
-    <%= form_with model: @reviw do |f| %>
-      <div class="input-group mb-3 mt-4">
+    <div data-controller="google-map--form">
+      <%= form_with model: @reviw do |f| %>
+        <div class="input-group mb-3 mt-4">
           <div class="input-group-prepend">
             <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-tenge-sign"></i></span>
           </div>
@@ -12,36 +13,49 @@
           <div class="input-group-prepend">
             <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span>
           </div>
-          <%= f.text_field :address, class: "form-control", placeholder: "住所", id: "post_image_address" %>
+          <%= f.text_field :address, class: "form-control", placeholder: "住所", id: "post_image_address", list: 'address_list', data: { google_map__form_target: 'address' } %>
+          <datalist id="address_list" data-google-map--form-target="addressList" ></datalist>
+        </div>
+        
+        キーワードで探す:
+        <%= f.search_field :keyword, data: { google_map__form_target: 'keyword' } %><br>
+          
+        <%= f.number_field :latitude, data: { google_map__form_target: 'latitude' }, tabindex: -1, readonly: true, class: "looks_disable" %>
+        <%= f.number_field :longitude, data: { google_map__form_target: 'longitude' }, tabindex: -1, readonly: true, class: "looks_disable"%><br> 
+          
+        <div data-google-map--form-target="map" style="height:20vh;max-width:300px;"></div>
+        
+        <%= render 'reviws/form', f: f %>
+        <div class="mb-2">
+          <label>レビュー</label>
+          <div id="star">
+        </div>
+        
+        <script>
+          $(document).on('turbolinks:load', function() {
+            const elem = document.querySelector('#star');
+            elem.innerHTML = "";
+            const opt = {  
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              scoreName: "reviw[star]",
+            };
+            raty(elem, opt);
+          });
+        </script>
       </div>
-      
-      <%= render 'reviws/form', f: f %>
       <div class="mb-2">
-        <label>レビュー</label>
-        <div id="star">
+        <%= f.submit '投稿', class: "btn btn-primary" %>
       </div>
-      
-      <script>
-       $(document).on('turbolinks:load', function() {
-          const elem = document.querySelector('#star');
-          elem.innerHTML = "";
-          const opt = {  
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            scoreName: "reviw[star]",
-          };
-          raty(elem, opt);
-       });
-      </script>
-    </div>
-    <div class="mb-2">
-      <%= f.submit '投稿', class: "btn btn-primary" %>
-    <% end %>
+      <% end %>
     </div>
   </div>
 </div>
-<script>
-  
-</script>
-<%#= javascript_pack_tag "jpostal",  'data-turbolinks-track': 'reload' %>
+
+<style>
+  .looks_disable {
+    background-color: #eee;
+    pointer-events: none;
+  }
+</style>

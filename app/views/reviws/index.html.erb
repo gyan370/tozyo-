@@ -9,7 +9,9 @@
   <% end %>
 </div>
 
-
+<div data-controller="google-map--index">
+  <div data-google-map--index-target="map" data-json="<%= @reviws_json %>" style="height:60vh;max-width:800px;"></div>
+</div>
 <div class="row">
   <% @reviws.each do |reviw| %>
     <div class="col-md-4 col-sm-6">   
@@ -40,6 +42,7 @@
              raty(elem, opt);
              });
           </script>
+
           <button type="button" class="btn-outline-primary disabled btn-sm"> <%= link_to "詳細", reviw_path(reviw.id) %> </button>
         </div>
       </div>

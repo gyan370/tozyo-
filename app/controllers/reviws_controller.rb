@@ -1,6 +1,7 @@
 class ReviwsController < ApplicationController
   def show
-    @reviw = Reviw.find(params[:id])  
+    @reviw = Reviw.find(params[:id])
+    @reviw_json = reviw_to_hash(@reviw).to_json
     @reviw_comment = ReviwComment.new
   end
 
@@ -14,25 +15,19 @@ class ReviwsController < ApplicationController
   end
 
   def index
-    respond_to do |format|
-      format.html do
-        @reviws = Reviw.page(params[:page])
-      end
-      format.json do
-        @reviws = Reviw.all
-      end
-    end
+    @reviws = Reviw.order(created_at: :desc).page(params[:page])
+    @reviws_json = @reviws.map { |o| reviw_to_hash(o) }.to_json
   end
   
   def create
     @reviw = Reviw.new(reviw_params)
     @reviw.user = current_user
     if @reviw.save
-    redirect_to reviws_path
-   else
-    flash.now[:error] = "投稿の保存に失敗しました。"
-    render :new
-   end
+      redirect_to reviws_path
+    else
+      flash.now[:error] = "投稿の保存に失敗しました。"
+      render :new
+    end
   end
   
   def destroy
@@ -52,15 +47,23 @@ class ReviwsController < ApplicationController
       render :edit
     end
   end
- private
+  
+  private
  
   def is_matching_login_user(owner)
-   unless owner == current_user
-    redirect_to reviws_path
-   end
+    unless owner == current_user
+      redirect_to reviws_path
+    end
   end
   
- def reviw_params
-    params.require(:reviw).permit(:title, :introduction, :castle, :store, :image, :star, :address)
- end
+  def reviw_params
+    params.require(:reviw).permit(:title, :introduction, :castle, :store, :image, :star, :address, :latitude, :longitude, :keyword)
+  end
+ 
+  def reviw_to_hash(reviw)
+    { id: reviw.id,
+      name: reviw.castle,
+      lat: reviw.latitude,
+      lng: reviw.longitude }
+  end
 end

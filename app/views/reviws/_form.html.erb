@@ -2,7 +2,7 @@
 
 <div class="mb-2">
   <%= f.label :castle, "城名" %>
-  <%= f.text_field :castle, class: "form-control" %>
+  <%= f.text_field :castle, class: "form-control", data: { google_map__form_target: 'castle' } %>
 </div>
 
 <div class="mb-2">
@@ -24,3 +24,6 @@
   <%= f.label :image, "画像" %>
   <%= f.file_field :image, accept: "image/*", class: "form-control" %>
 </div>
+
+
+  

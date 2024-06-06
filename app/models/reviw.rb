@@ -7,7 +7,9 @@ class Reviw < ApplicationRecord
   validates :store, presence: true
   validates :introduction, presence: true, length: { maximum: 140 }
   validates :address, presence: true
-
+  validates :latitude, presence: true
+  validates :longitude, presence: true
+  attr_accessor :keyword
   #geocoded_by :address
   #after_validation :geocode
   
