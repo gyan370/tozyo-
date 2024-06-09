@@ -1,21 +1,22 @@
 <h1>投稿一覧</h1>
+  <div class="col-mb-4">
+    <div class="search_form">
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word %>
+        <%= f.select :range, options_for_select([['User'],['Reviw']]) %>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"],["前方一致","forward_match"],["後方一致","backward_match"],["部分一致","partial_match"]]) %>
+        <%= f.submit "検索",class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+  </div>
+    <div data-controller="google-map--index">
+      <div data-google-map--index-target="map" data-json="<%= @reviws_json %>" style="height:60vh;max-width:800px;"></div>
+    </div>
 
-<div class="search_form">
-  <%= form_with url: search_path, local: true, method: :get do |f| %>
-    <%= f.text_field :word %>
-    <%= f.select :range, options_for_select([['User'],['Reviw']]) %>
-    <%= f.select :search, options_for_select([["完全一致","perfect_match"],["前方一致","forward_match"],["後方一致","backward_match"],["部分一致","partial_match"]]) %>
-    <%= f.submit "検索",class: "btn btn-primay" %>
-  <% end %>
-</div>
-
-<div data-controller="google-map--index">
-  <div data-google-map--index-target="map" data-json="<%= @reviws_json %>" style="height:60vh;max-width:800px;"></div>
-</div>
 <div class="row">
   <% @reviws.each do |reviw| %>
-    <div class="col-md-4 col-sm-6">   
-      <div class="card mb-4">
+    <div class="col-md-4 col-sm-6 col-mt-2">   
+      <div class="card border-dark mb-4">
         <div class="card-body">
           <% if reviw.image.attached? %>
             <%= image_tag(reviw.image, class: "card-img-top") %>
