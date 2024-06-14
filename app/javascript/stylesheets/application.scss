@@ -1,1 +1,30 @@
 @use '~bootstrap/scss/bootstrap';
+
+.background {
+  width: 100%;
+  height: 100%;
+  background-image:  url('../images/siro.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.title{
+  text-align: center;
+   span {
+    zoom: 150%;	
+    background-color: rgba(0, 0, 0, 0.5);
+    text-shadow:1px 1px 0 #FFF, -1px -1px 0 #FFF,
+                -1px 1px 0 #FFF, 1px -1px 0 #FFF,
+                0px 1px 0 #FFF,  0-1px 0 #FFF,
+                -1px 0 0 #FFF, 1px 0 0 #FFF;
+   }
+}
+
+.text{
+  text-align: center;
+  span {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
