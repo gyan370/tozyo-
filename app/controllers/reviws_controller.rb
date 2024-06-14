@@ -33,7 +33,7 @@ class ReviwsController < ApplicationController
   def destroy
     reviw = Reviw.find(params[:id])  
     reviw.destroy  
-    redirect_to '/reviws' 
+    redirect_to reviws_path
     is_matching_login_user(@reviw.user)
   end
   
