@@ -1,4 +1,6 @@
 class ReviwsController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
   def show
     @reviw = Reviw.find(params[:id])
     @reviw_json = reviw_to_hash(@reviw).to_json
@@ -6,8 +8,6 @@ class ReviwsController < ApplicationController
   end
 
   def edit
-    @reviw = Reviw.find(params[:id])
-    is_matching_login_user(@reviw.user)
   end
 
   def new
@@ -31,14 +31,11 @@ class ReviwsController < ApplicationController
   end
   
   def destroy
-    reviw = Reviw.find(params[:id])  
-    reviw.destroy  
+    @reviw.destroy
     redirect_to reviws_path
-    is_matching_login_user(@reviw.user)
   end
   
   def update
-    @reviw = Reviw.find(params[:id])
     if @reviw.update(reviw_params)
       flash[:notice] = "successfully"
       redirect_to reviw_path(@reviw.id)
@@ -50,9 +47,10 @@ class ReviwsController < ApplicationController
   
   private
  
-  def is_matching_login_user(owner)
-    unless owner == current_user
-      redirect_to reviws_path
+  def is_matching_login_user
+    @reviw = Reviw.find_by(id: params[:id]) 
+    unless @reviw&.user == current_user
+      redirect_to root_path
     end
   end
   
